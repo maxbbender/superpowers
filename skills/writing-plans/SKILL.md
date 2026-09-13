@@ -7,6 +7,12 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 ## Overview
 
+A plan covers **one tracker ticket**. The ticket body (what to build,
+acceptance criteria) is the requirements; the `spec` issue it descends
+from is the authority the plan argues from. Read both with
+`gh issue view <n> --comments` before writing. A ticket small enough for
+one implementer dispatch needs no plan — the ticket body is the brief.
+
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
@@ -15,12 +21,15 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/superpowers/plans/<ticket-number>-<slug>.md`
 - (User preferences for plan location override this default)
 
 ## Scope Check
 
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+If the ticket spans multiple independent subsystems, it was sliced too
+coarse. Stop and tell your human partner: the fix is a re-run of
+`/to-tickets` on the parent spec, not a wider plan. Each ticket, and so
+each plan, produces working, testable software on its own.
 
 ## File Structure
 
@@ -66,8 +75,12 @@ independently testable deliverable.
 
 **Tech Stack:** [Key technologies/libraries]
 
-**Spec:** [path to the spec/design doc this plan implements — the plan
-argues from the spec, so the spec travels with it; executors read both]
+**Ticket:** #<n> — <title verbatim> [the ticket this plan implements; its
+acceptance criteria are the reviewer's checklist]
+
+**Spec:** #<m> [the `spec` issue the ticket descends from, plus the design
+doc path if the issue links one — the plan argues from the spec, so the
+spec travels with it; executors read both]
 
 ## Global Constraints
 
@@ -154,7 +167,7 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/superpowers/plans/<n>-<slug>.md`. Two execution options:**
 
 **1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
 

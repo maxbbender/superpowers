@@ -28,7 +28,8 @@ Then announce "Using [skill] to [purpose]" and follow the skill exactly. If it h
 When multiple skills apply, process skills come first — they set the approach, then implementation skills (frontend-design, etc.) carry it out. Brainstorming and systematic-debugging are Superpowers' most common process skills, but the rule holds for any of them.
 
 - "Let's build X" → superpowers:brainstorming first, then implementation skills.
-- "Fix this bug" → superpowers:systematic-debugging first, then domain skills.
+- "Build ticket #n" where the issue is `ready-for-agent` with acceptance criteria → the ticket IS the approved design. Implementation skills directly; brainstorming is already satisfied. Scope the ticket does not cover becomes a new `needs-triage` issue.
+- "Fix this bug" where a failing command already exists → superpowers:systematic-debugging first, then domain skills. A bug with no reproducing command yet (a report, a ticket, a flake, a perf regression) → maxbbender-skills:diagnosing-bugs first.
 
 ## Red Flags
 
@@ -48,6 +49,7 @@ These thoughts mean STOP—you're rationalizing:
 | "I'll just do this one thing first" | Check BEFORE doing anything. |
 | "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
 | "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
+| "The ticket is approved, but I should brainstorm it anyway" | A `ready-for-agent` ticket with acceptance criteria is the design. Build it. Gaps become `needs-triage` issues, not questions. |
 
 ## Platform Adaptation
 

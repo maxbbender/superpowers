@@ -33,9 +33,9 @@ For each task:
 ### Step 3: Complete Development
 
 After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Announce: "I'm using the shipping-a-feature skill to complete this work."
+- **REQUIRED SUB-SKILL:** Use shipping-a-feature
+- Follow that skill: push, PR with `Closes #<n>`, verify, confirm, squash-merge
 
 ## When to Stop and Ask for Help
 

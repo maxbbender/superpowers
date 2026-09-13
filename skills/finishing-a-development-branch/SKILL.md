@@ -1,6 +1,7 @@
 ---
 name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
+description: Use only when your human partner explicitly asks to merge a branch locally or keep it without a PR. The default finish is shipping-a-feature (PR with Closes #n, verify, confirm, squash-merge).
+disable-model-invocation: true
 ---
 
 # Finishing a Development Branch

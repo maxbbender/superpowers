@@ -13,6 +13,24 @@ Write the test first. Watch it fail. Write minimal code to pass.
 
 **Violating the letter of the rules is violating the spirit of the rules.**
 
+## Seams: where tests go
+
+A **seam** is the public boundary you test at: the interface where you
+observe behavior without reaching inside. Tests live at seams, never
+against internals. Seams are **pre-agreed**: the `spec` issue's Testing
+Decisions and the ticket's acceptance criteria name them. When the ticket
+names none, the seam is the highest existing public interface that
+reaches the behavior; record that choice in your report.
+
+Prefer existing seams to new ones; the fewer seams across the codebase,
+the better. Test the critical path and the complex logic at each seam,
+not every function behind it.
+
+**REQUIRED BACKGROUND:** maxbbender-skills:tdd holds the test-quality
+reference (`tests.md`, `mocking.md`): the three anti-patterns
+(implementation-coupled, tautological, horizontal slicing) and the
+mocking rules. Read it before the first RED of a ticket.
+
 ## When to Use
 
 **Always:**
@@ -202,6 +220,8 @@ Next failing test for next feature.
 | **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
 | **Clear** | Name describes behavior | `test('test1')` |
 | **Shows intent** | Demonstrates desired API | Obscures what code should do |
+| **At a seam** | Drives the public interface; survives a refactor | Mocks an internal collaborator; asserts through a side channel |
+| **Independent expected value** | A known-good literal, a worked example, the spec | Recomputes the expected value the way the code does |
 
 When writing or changing any test, read [writing-good-tests.md](writing-good-tests.md) for the rules that keep tests honest:
 - Name the production change that would make the test fail — before writing it
@@ -284,7 +304,7 @@ Extract validation for multiple fields if needed.
 
 Before marking work complete:
 
-- [ ] Every new function/method has a test
+- [ ] Every agreed seam has a test; no test reaches past a seam into internals
 - [ ] Watched each test fail before implementing
 - [ ] Each test failed for expected reason (feature missing, not typo)
 - [ ] Wrote minimal code to pass each test

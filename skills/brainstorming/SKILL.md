@@ -45,7 +45,7 @@ override it:
 - **Architectural** — new projects, new subsystems, changes that
   restructure how components fit together or alter interfaces others
   depend on. Follow the full process: questions, approaches, sectioned
-  design, written spec, then the writing-plans skill.
+  design, then hand off to `/to-spec` and `/to-tickets` on the tracker.
 
 When in doubt between two paths, take the heavier one. The ratchet is
 one-way: hidden complexity discovered mid-task upgrades the path —
@@ -71,6 +71,7 @@ artifact, never the approval.
 | "The spike works, so I'll keep the code" | A spike's output is an answer. Keeping the code is a new request — classify it. |
 | "It grew, but I'm almost done — no need to re-classify" | Hidden complexity upgrades the path mid-task. Stop and say so. |
 | "They approved the spike, so the follow-up change is approved too" | Each task gets its own classification and its own approval. |
+| "This ticket is `ready-for-agent`, but I'll brainstorm it to be safe" | The ticket's acceptance criteria are the approved design. Build it; anything it does not cover becomes a `needs-triage` issue. |
 
 ## Checklist
 
@@ -97,10 +98,7 @@ your path and complete them in order.
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
-7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Hand off to the tracker** — when the design ran to several sections, save it to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit so the spec issue can link it; then ask your human partner to run `/to-spec` (publishes the `spec`-labelled issue) and `/to-tickets #<n>` (slices it into tickets). Brainstorming ends here.
 
 ## Process Flow
 
@@ -118,10 +116,7 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
-    "Write design doc" [shape=box];
-    "Spec self-review\n(fix inline)" [shape=box];
-    "User reviews spec?" [shape=diamond];
-    "Invoke writing-plans skill" [shape=doublecircle];
+    "Ask partner to run /to-spec, then /to-tickets" [shape=doublecircle];
     "Hidden complexity? Upgrade path" [shape=box];
 
     "Classify: spike / bounded / architectural" -> "Present question + probe (2-3 sentences)" [label="spike"];
@@ -138,20 +133,17 @@ digraph brainstorming {
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Spec self-review\n(fix inline)";
-    "Spec self-review\n(fix inline)" -> "User reviews spec?";
-    "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
+    "User approves design?" -> "Ask partner to run /to-spec, then /to-tickets" [label="yes"];
 }
 ```
 
-**Terminal states are path-bound.** Architectural: the ONLY skill you
-invoke after brainstorming is writing-plans — never frontend-design,
-mcp-builder, or any other implementation skill. Bounded: after
-approval, implementation proceeds directly through the normal
-development workflow; no plan document. Spike: the terminal state is a
-reported recommendation.
+**Terminal states are path-bound.** Architectural: the ONLY next step
+after brainstorming is asking your human partner to run `/to-spec` —
+never writing-plans (plans are written per ticket, later, by whoever
+works the ticket), never frontend-design, mcp-builder, or any other
+implementation skill. Bounded: after approval, implementation proceeds
+directly through the normal development workflow; no plan document.
+Spike: the terminal state is a reported recommendation.
 
 ## The Process
 
@@ -201,34 +193,21 @@ is the whole process.
 
 ## After the Design (architectural path)
 
-**Documentation:**
+The spec lives on the repo's issue tracker as a `spec`-labelled issue,
+published by `/to-spec`; `/to-tickets` slices it into `ready-for-agent`
+tickets with blocking edges. Both are user-invoked, so brainstorming ends
+by asking for them:
 
-- Write the validated design (spec) to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
-  - (User preferences for spec location override this default)
-- Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+> "Design approved. Run `/to-spec` to publish it as the spec issue, then
+> `/to-tickets #<n>` to slice it. I'll work the tickets from there."
 
-**Spec Self-Review:**
-After writing the spec document, look at it with fresh eyes:
+**Design doc (when the design ran to several sections):** save it to
+`docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit before the
+handoff, so `/to-spec` can link it from the issue. A short bounded-sized
+design needs no file; the conversation is enough for `/to-spec`.
 
-1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, or vague requirements? Fix them.
-2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
-3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
-4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
-
-Fix any issues inline. No need to re-review — just fix and move on.
-
-**User Review Gate:**
-After the spec review loop passes, ask the user to review the written spec before proceeding:
-
-> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
-
-Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
-
-**Implementation:**
-
-- Invoke the writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+The spec self-review (placeholders, contradictions, scope, ambiguity) runs
+inside `/to-spec` against the published issue body — it is not repeated here.
 
 ## Visual Companion
 

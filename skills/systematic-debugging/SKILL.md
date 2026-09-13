@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: Use when a test, build, or check you are already running fails — the failing command is the feedback loop — before proposing fixes. A bug with no reproducing command yet (a report, a ticket, a flake, a perf regression) goes to maxbbender-skills:diagnosing-bugs first.
 ---
 
 # Systematic Debugging
@@ -21,13 +21,18 @@ If you haven't completed Phase 1, you cannot propose fixes.
 
 ## When to Use
 
-Use for ANY technical issue:
-- Test failures
-- Bugs in production
-- Unexpected behavior
-- Performance problems
-- Build failures
-- Integration issues
+Use when the failure already has a command that reproduces it:
+- A test you just wrote or ran fails
+- A build, typecheck, or lint fails mid-task
+- A check inside an SDD task or a red-green loop goes red
+- An integration test fails on a known input
+
+The failing command is your feedback loop; go straight to Phase 1.
+
+A bug that arrives **without** a reproducing command — a bug report, a
+`needs-triage` ticket, an intermittent flake, a performance regression —
+goes to maxbbender-skills:diagnosing-bugs first. It builds the loop; this
+skill assumes one exists.
 
 **Use this ESPECIALLY when:**
 - Under time pressure (emergencies make guessing tempting)

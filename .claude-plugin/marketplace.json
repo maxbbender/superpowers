@@ -1,6 +1,6 @@
 {
-  "name": "superpowers-dev",
-  "description": "Development marketplace for Superpowers core skills library",
+  "name": "maxbbender-superpowers",
+  "description": "maxbbender fork of Superpowers, integrated with the maxbbender-skills tracker flow",
   "owner": {
     "name": "Jesse Vincent",
     "email": "jesse@fsck.com"
